@@ -16,11 +16,11 @@ TagManager:
   - Pillars
   - Ground
   - Walls
+  - 
+  - Player
+  - Enemy
+  - 
   - Overlays
-  - Traps
-  - 
-  - 
-  - 
   - 
   - 
   - 
@@ -41,4 +41,22 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 491943093
+    locked: 0
+  - name: Pillars
+    uniqueID: 706910305
+    locked: 0
+  - name: Ground
+    uniqueID: 1213107481
+    locked: 0
+  - name: Walls
+    uniqueID: 987285851
+    locked: 0
+  - name: Enemies
+    uniqueID: 72935513
+    locked: 0
+  - name: Overlays
+    uniqueID: 2236560345
     locked: 0
