@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -47,6 +48,12 @@ TagManager:
     locked: 0
   - name: Pillars
     uniqueID: 706910305
+    locked: 0
+  - name: Projectiles
+    uniqueID: 3278975175
+    locked: 0
+  - name: Launchers
+    uniqueID: 1829520699
     locked: 0
   - name: Ground
     uniqueID: 1213107481

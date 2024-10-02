@@ -5,10 +5,14 @@ public class Health : MonoBehaviour
 {
     [Header ("Health")]
     [SerializeField] private float startingHealth;
+    [SerializeField] private bool killAble;
 
     [Header ("Iframes")]
     [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
+
+    [Header ("Components")]
+    [SerializeField] private Behaviour[] components;
 
     private float currentHealth;
     
@@ -42,9 +46,10 @@ public class Health : MonoBehaviour
                 if (!dead)
                 {
                     animator.SetTrigger("die");
-                    if (playerMovement != null)
+
+                    foreach (Behaviour component in components)
                     {
-                        playerMovement.enabled = false;
+                        component.enabled = false;
                     }
                     dead = true;
                 }
