@@ -148,6 +148,7 @@ MonoBehaviour:
   activationDelay: 1
   cooldownDelay: 1
   activeTime: 2
+  activateSound: {fileID: 8300000, guid: fd1c1f36552f65e44b4b194e0edfc179, type: 3}
 --- !u!95 &5236968138257581150
 Animator:
   serializedVersion: 5

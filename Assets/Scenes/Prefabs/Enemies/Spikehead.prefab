@@ -181,3 +181,4 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 768
+  impactSound: {fileID: 8300000, guid: f4f89c3eea30eb643a16bce9268e4d9e, type: 3}

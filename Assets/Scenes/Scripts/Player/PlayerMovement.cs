@@ -2,14 +2,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header ("Movement Setttings")]
     [SerializeField] private float speed;
     [SerializeField] private float jumpPower;
     [SerializeField] private float wallJumpPowerX;
     [SerializeField] private float wallJumpPowerY;
     [SerializeField] private float wallSlideSpeed;
 
+    [Header ("Layer settings")]
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask wallLayer;
+
+    [Header ("Sounds")]
+    [SerializeField] private AudioClip jumpSound;
     private Rigidbody2D body;
     private Animator animator;
     private BoxCollider2D boxCollider;
@@ -52,7 +57,12 @@ public class PlayerMovement : MonoBehaviour
 
             //Makes the player jump
             if (Input.GetKey(KeyCode.Space))
+            {
                 jump();
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded())
+                    SoundManager.instance.PlaySound(jumpSound);
+            }
+                
         }
         else wallJumpCooldown += Time.deltaTime;
     }
