@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6176148933113965185}
   - component: {fileID: 9037654318336389839}
   - component: {fileID: 7697212912994811877}
+  - component: {fileID: 3283446942567149475}
   m_Layer: 11
   m_Name: player
   m_TagString: Player
@@ -268,3 +269,16 @@ MonoBehaviour:
   BlockCooldown: 1
   blockSound: {fileID: 8300000, guid: f4f89c3eea30eb643a16bce9268e4d9e, type: 3}
   playerhealth: {fileID: 3086691381609682540}
+--- !u!114 &3283446942567149475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2155414703274679743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48253b7ebadd3a64e8a48ac5a166945c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointSound: {fileID: 8300000, guid: 03b27ca5ce122af4c84581e871b5261a, type: 3}

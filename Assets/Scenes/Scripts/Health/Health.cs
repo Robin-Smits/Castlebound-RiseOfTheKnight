@@ -3,23 +3,23 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [Header ("Health")]
+    [Header("Health")]
     [SerializeField] private float startingHealth;
 
-    [Header ("Iframes")]
+    [Header("Iframes")]
     [SerializeField] private float iFramesDuration;
     [SerializeField] private int numberOfFlashes;
 
-    [Header ("Components")]
+    [Header("Components")]
     [SerializeField] private Behaviour[] components;
 
-    [Header ("Sounds")]
+    [Header("Sounds")]
     [SerializeField] private AudioClip hurtSound;
     [SerializeField] private AudioClip deathSound;
 
     //References
     private float currentHealth;
-    
+
     private Animator animator;
     private PlayerMovement playerMovement;
     private bool dead;
@@ -37,7 +37,7 @@ public class Health : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
-        
+
         if (animator != null)
         {
             if (currentHealth > 0)
@@ -45,9 +45,9 @@ public class Health : MonoBehaviour
                 animator.SetTrigger("hurt");
                 SoundManager.instance.PlaySound(hurtSound);
                 StartCoroutine(Invulnerability());
-            } 
-            else 
-            { 
+            }
+            else
+            {
                 if (!dead)
                 {
                     animator.SetTrigger("die");
@@ -67,6 +67,19 @@ public class Health : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth + _health, 0, startingHealth);
     }
 
+    public void Respawn()
+    {
+        dead = false;
+        AddHealth(startingHealth);
+        animator.ResetTrigger("die");
+        animator.Play("idle");
+        StartCoroutine(Invulnerability());
+
+        //Re-activate components
+        foreach (Behaviour component in components)
+            component.enabled = true;
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -82,14 +95,14 @@ public class Health : MonoBehaviour
 
     private IEnumerator Invulnerability()
     {
-        Physics2D.IgnoreLayerCollision(11,12,true);
+        Physics2D.IgnoreLayerCollision(11, 12, true);
         for (int i = 0; i < numberOfFlashes; i++)
         {
-            spriteRenderer.color = new Color(1,0,0,0.5f);
+            spriteRenderer.color = new Color(1, 0, 0, 0.5f);
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(iFramesDuration / (numberOfFlashes * 2));
         }
-    Physics2D.IgnoreLayerCollision(11,12,false);
+        Physics2D.IgnoreLayerCollision(11, 12, false);
     }
 }
