@@ -2,13 +2,18 @@ using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
 {
+    [Header ("Attack settings")]
     [SerializeField] private float attackCooldown;
     [SerializeField] private float damage;
 
+    [Header ("Collider Settings")]
     [SerializeField] private BoxCollider2D boxCollider;
     [SerializeField] private float range;
     [SerializeField] private float colliderDistance;
     [SerializeField] private LayerMask enemyLayer;
+
+    [Header ("Sounds")]
+    [SerializeField] private AudioClip attackSound;
 
     private Animator animator;
     private PlayerMovement playerMovement;
@@ -34,6 +39,7 @@ public class PlayerAttack : MonoBehaviour
     private void Attack()
     {
         animator.SetTrigger("attack");
+        SoundManager.instance.PlaySound(attackSound);
         cooldownTimer = 0;
     }
 

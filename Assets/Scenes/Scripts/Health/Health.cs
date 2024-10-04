@@ -5,7 +5,6 @@ public class Health : MonoBehaviour
 {
     [Header ("Health")]
     [SerializeField] private float startingHealth;
-    [SerializeField] private bool killAble;
 
     [Header ("Iframes")]
     [SerializeField] private float iFramesDuration;
@@ -14,6 +13,11 @@ public class Health : MonoBehaviour
     [Header ("Components")]
     [SerializeField] private Behaviour[] components;
 
+    [Header ("Sounds")]
+    [SerializeField] private AudioClip hurtSound;
+    [SerializeField] private AudioClip deathSound;
+
+    //References
     private float currentHealth;
     
     private Animator animator;
@@ -39,6 +43,7 @@ public class Health : MonoBehaviour
             if (currentHealth > 0)
             {
                 animator.SetTrigger("hurt");
+                SoundManager.instance.PlaySound(hurtSound);
                 StartCoroutine(Invulnerability());
             } 
             else 
@@ -46,6 +51,7 @@ public class Health : MonoBehaviour
                 if (!dead)
                 {
                     animator.SetTrigger("die");
+                    SoundManager.instance.PlaySound(deathSound);
 
                     foreach (Behaviour component in components)
                     {

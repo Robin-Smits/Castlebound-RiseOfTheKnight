@@ -205,6 +205,7 @@ MonoBehaviour:
   GroundLayer:
     serializedVersion: 2
     m_Bits: 256
+  attackSound: {fileID: 8300000, guid: 6835e5ab80f17ac4896046c8303b0252, type: 3}
 --- !u!114 &4283075650522570614
 MonoBehaviour:
   m_ObjectHideFlags: 0
