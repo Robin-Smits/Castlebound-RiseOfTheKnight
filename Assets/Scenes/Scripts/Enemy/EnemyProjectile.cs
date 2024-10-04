@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyProjectile : EnemyDamage
@@ -25,7 +23,8 @@ public class EnemyProjectile : EnemyDamage
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        base.OnTriggerEnter2D(collision);
+        if (collision.tag == "Player")
+            collision.GetComponent<PlayerBlock>().IsBlockingDamage(transform.position , damage);
         gameObject.SetActive(false);
     }
 }

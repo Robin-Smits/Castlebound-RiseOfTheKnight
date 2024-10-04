@@ -45,7 +45,7 @@ public class PlayerBlock : MonoBehaviour
     }
 
     // Call this function to check if the player blocks damage based on the attack direction
-    public void IsBlockingDamage(Vector3 enemyPosition, int _damage)
+    public void IsBlockingDamage(Vector3 enemyPosition, float _damage)
     {
         if (!isBlocking)
         {
