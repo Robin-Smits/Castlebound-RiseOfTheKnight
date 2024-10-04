@@ -5488,6 +5488,10 @@ PrefabInstance:
       propertyPath: m_IncludeLayers.m_Bits
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2773739099868004445, guid: 122c10032db10df4fa0e5c38b42cdec2, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 2816
+      objectReference: {fileID: 0}
     - target: {fileID: 4051816674305876734, guid: 122c10032db10df4fa0e5c38b42cdec2, type: 3}
       propertyPath: range
       value: 5
@@ -5597,6 +5601,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7697212912994811877, guid: 4c8fa026a7f9a9c4e8c29048af6df694, type: 3}
+      propertyPath: playerhealth
+      value: 
+      objectReference: {fileID: 1052551823}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

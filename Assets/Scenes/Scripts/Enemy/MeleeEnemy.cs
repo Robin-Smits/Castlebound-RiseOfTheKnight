@@ -16,12 +16,13 @@ public class MeleeEnemy : MonoBehaviour
     [SerializeField] private LayerMask GroundLayer;
     private float cooldownTimer = Mathf.Infinity;
 
-    [Header ("Sounds")]
+    [Header("Sounds")]
     [SerializeField] private AudioClip attackSound;
 
     //References
     private Animator animator;
     private Health playerHealth;
+    private PlayerBlock playerBlock; // Add reference to PlayerBlock script
     private EnemyPatrol enemyPatrol;
 
     private void Awake()
@@ -36,7 +37,7 @@ public class MeleeEnemy : MonoBehaviour
 
         animator.SetBool("grounded", isGrounded());
 
-        //Attack only when player in sight?
+        // Attack only when the player is in sight
         if (PlayerInSight())
         {
             if (cooldownTimer >= attackCooldown && playerHealth.GetCurrentHealth() > 0)
@@ -53,9 +54,8 @@ public class MeleeEnemy : MonoBehaviour
 
     private bool PlayerInSight()
     {
-        RaycastHit2D hit =
-            Physics2D.BoxCast(
-                boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
+        RaycastHit2D hit = Physics2D.BoxCast(
+            boxCollider.bounds.center + transform.right * range * transform.localScale.x * colliderDistance,
             new Vector3(
                 boxCollider.bounds.size.x * range,
                 boxCollider.bounds.size.y,
@@ -65,13 +65,38 @@ public class MeleeEnemy : MonoBehaviour
             Vector2.left,
             0,
             playerLayer
-            );
+        );
 
         if (hit.collider != null)
+        {
             playerHealth = hit.transform.GetComponent<Health>();
+            playerBlock = hit.transform.GetComponent<PlayerBlock>();
+        }
 
         return hit.collider != null;
     }
+
+    private void DamagePlayer()
+    {
+        if (PlayerInSight())
+        {
+            playerBlock.IsBlockingDamage(transform.position, damage);
+        }
+    }
+
+    private bool isGrounded()
+    {
+        RaycastHit2D raycastHit = Physics2D.BoxCast(
+            boxCollider.bounds.center,
+            boxCollider.bounds.size,
+            0,
+            new Vector2(0, -1),
+            0.1f,
+            GroundLayer
+        );
+        return raycastHit.collider != null;
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -83,23 +108,5 @@ public class MeleeEnemy : MonoBehaviour
                 boxCollider.bounds.size.z
             )
         );
-    }
-
-    private void DamagePlayer()
-    {
-        if (PlayerInSight())
-            playerHealth.TakeDamage(damage);
-    }
-
-    private bool isGrounded()
-    {
-        RaycastHit2D raycastHit = Physics2D.BoxCast(
-            boxCollider.bounds.center,
-            boxCollider.bounds.size,
-            0,
-            new Vector2(0, -1), 0.1f,
-            GroundLayer
-        );
-        return raycastHit.collider != null;
     }
 }

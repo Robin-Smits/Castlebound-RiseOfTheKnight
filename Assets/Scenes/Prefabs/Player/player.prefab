@@ -266,3 +266,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   BlockCooldown: 1
+  blockSound: {fileID: 8300000, guid: f4f89c3eea30eb643a16bce9268e4d9e, type: 3}
+  playerhealth: {fileID: 3086691381609682540}
