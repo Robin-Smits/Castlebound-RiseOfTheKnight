@@ -2,18 +2,34 @@ using UnityEngine;
 
 public class PlayerRespawn : MonoBehaviour
 {
+    [Header("Sounds")]
+    [SerializeField] private int playerLives;
+
+    [Header("Sounds")]
     [SerializeField] private AudioClip checkpointSound;
     private Transform currentCheckpoint;
     private Health playerHealth;
+    private UImanager uiManager;
 
     private void Awake()
     {
         playerHealth = GetComponent<Health>();
+        uiManager = FindObjectOfType<UImanager>();
     }
 
-    public void respawn() {
-        transform.position = currentCheckpoint.position;
-        playerHealth.Respawn();
+    public void CheckRespawn()
+    {
+        if (playerLives > 0)
+        {
+            //Respawn player
+            transform.position = currentCheckpoint.position;
+            playerHealth.Respawn();
+        }
+        else
+        {
+            //Game over
+            uiManager.GameOver();
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
