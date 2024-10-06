@@ -21,7 +21,8 @@ public class PlayerRespawn : MonoBehaviour
     {
         if (playerLives > 0)
         {
-            //Respawn player
+            //Respawn player & take a life away
+            playerLives--;
             transform.position = currentCheckpoint.position;
             playerHealth.Respawn();
         }
@@ -37,7 +38,6 @@ public class PlayerRespawn : MonoBehaviour
         if (collision.transform.tag == "Checkpoint")
         {
             currentCheckpoint = collision.transform;
-            Debug.Log("Checkpoint set to: " + currentCheckpoint.position); // Debug log
             SoundManager.instance.PlaySound(checkpointSound);
             collision.GetComponent<Collider2D>().enabled = false;
             collision.GetComponent<Animator>().SetTrigger("appear");

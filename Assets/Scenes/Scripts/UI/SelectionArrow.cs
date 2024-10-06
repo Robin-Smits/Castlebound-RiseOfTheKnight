@@ -24,7 +24,7 @@ public class SelectionArrow : MonoBehaviour
             ChangePosition(1);
 
         //Interaction options
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.KeypadEnter))
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Return))
             Interact();
     }
     private void ChangePosition(int _change)

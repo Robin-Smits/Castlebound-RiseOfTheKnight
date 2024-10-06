@@ -80,14 +80,6 @@ public class Health : MonoBehaviour
             component.enabled = true;
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TakeDamage(1f);
-        }
-    }
-
     public float GetCurrentHealth()
     {
         return currentHealth;
