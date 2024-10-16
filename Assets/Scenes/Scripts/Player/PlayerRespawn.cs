@@ -53,25 +53,36 @@ public class PlayerRespawn : MonoBehaviour
             collision.GetComponent<Collider2D>().enabled = false;
             collision.GetComponent<Animator>().SetTrigger("appear");
 
-            StartCoroutine(ExitLevelAfterDelay(5f));
+            StartCoroutine(ExitLevelAfterDelay(3f));
         }
     }
 
-    IEnumerator ExitLevelAfterDelay(float delay)
+IEnumerator ExitLevelAfterDelay(float delay)
     {
-        // Wait for 5 seconds
         yield return new WaitForSeconds(delay);
 
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int maxLevelIndex = SceneManager.sceneCountInBuildSettings - 1;
+
         // Check if the current level is the highest level completed
-        if (SceneManager.GetActiveScene().buildIndex >= PlayerPrefs.GetInt("ReachedIndex", 1))
+        if (currentSceneIndex >= PlayerPrefs.GetInt("ReachedIndex", 1))
         {
             // Update the player's progress
-            PlayerPrefs.SetInt("ReachedIndex", SceneManager.GetActiveScene().buildIndex + 1);
-            PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
-            PlayerPrefs.Save();
+            PlayerPrefs.SetInt("ReachedIndex", currentSceneIndex + 1);
 
-            // Load the next level
-            SceneManager.LoadScene(PlayerPrefs.GetInt("ReachedIndex"));
+            // Check if the current level is the last level
+            if (currentSceneIndex < maxLevelIndex)
+            {
+                // Load the next level
+                PlayerPrefs.SetInt("UnlockedLevel", PlayerPrefs.GetInt("UnlockedLevel", 1) + 1);
+                PlayerPrefs.Save();
+                SceneManager.LoadScene(currentSceneIndex + 1);
+            }
+            else
+            {
+                // Load the level selection menu
+                SceneManager.LoadScene(1);
+            }
         }
         else
         {
