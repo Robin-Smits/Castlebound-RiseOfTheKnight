@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerBlock : MonoBehaviour
 {
@@ -10,32 +11,57 @@ public class PlayerBlock : MonoBehaviour
     private float cooldownTimer = Mathf.Infinity;
     private bool isBlocking;
 
+    private PlayerInputActions playerInputActions;
+
     private void Awake()
     {
         animator = GetComponent<Animator>();
         playerMovement = GetComponent<PlayerMovement>();
+        playerInputActions = new PlayerInputActions(); // Nieuwe input acties aanmaken
+    }
+
+    private void OnEnable()
+    {
+        playerInputActions.Enable();
+
+        // Abonneer je op de input acties
+        playerInputActions.Base.Block.performed += OnBlock;
+        playerInputActions.Base.Block.canceled += OnBlockRelease;
+    }
+
+    private void OnDisable()
+    {
+        playerInputActions.Disable();
+
+        // Unsubscribe to prevent memory leaks
+        playerInputActions.Base.Block.performed -= OnBlock;
+        playerInputActions.Base.Block.canceled -= OnBlockRelease;
     }
 
     private void Update()
     {
-        // Block input and cooldown handling
-        if (Input.GetMouseButtonDown(1) && cooldownTimer > BlockCooldown && playerMovement.canAttack())
+        // Cooldown bijhouden
+        cooldownTimer += Time.deltaTime;
+    }
+
+    private void OnBlock(InputAction.CallbackContext context)
+    {
+        if (cooldownTimer > BlockCooldown && playerMovement.canAttack())
         {
             StartBlocking();
         }
-        else if (Input.GetMouseButtonUp(1))
-        {
-            StopBlocking();
-        }
+    }
 
-        cooldownTimer += Time.deltaTime;
+    private void OnBlockRelease(InputAction.CallbackContext context)
+    {
+        StopBlocking();
     }
 
     private void StartBlocking()
     {
         isBlocking = true;
         animator.SetBool("block", true);
-        cooldownTimer = 0;
+        cooldownTimer = 0; // Reset cooldown timer bij blokkeren
     }
 
     private void StopBlocking()
@@ -69,5 +95,4 @@ public class PlayerBlock : MonoBehaviour
             playerhealth.TakeDamage(_damage); // If not blocking correctly, take damage
         }
     }
-
 }

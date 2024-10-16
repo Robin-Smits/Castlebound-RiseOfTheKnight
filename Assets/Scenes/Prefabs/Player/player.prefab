@@ -231,7 +231,7 @@ MonoBehaviour:
     m_Bits: 256
   wallLayer:
     serializedVersion: 2
-    m_Bits: 512
+    m_Bits: 256
   jumpSound: {fileID: 8300000, guid: ebc608f4e703e9c4cb78dd631849f5e6, type: 3}
 --- !u!114 &9037654318336389839
 MonoBehaviour:
@@ -281,4 +281,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 48253b7ebadd3a64e8a48ac5a166945c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerLives: 0
   checkpointSound: {fileID: 8300000, guid: 03b27ca5ce122af4c84581e871b5261a, type: 3}

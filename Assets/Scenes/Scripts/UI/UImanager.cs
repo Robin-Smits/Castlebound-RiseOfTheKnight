@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem; // Import this namespace
 
 public class UImanager : MonoBehaviour
 {
@@ -10,32 +11,43 @@ public class UImanager : MonoBehaviour
     [Header("Pause")]
     [SerializeField] private GameObject pauseScreen;
 
+    private PlayerInputActions playerInputActions; // Reference to the input actions
+
     private void Awake()
     {
         gameOverScreen.SetActive(false);
         pauseScreen.SetActive(false);
+
+        playerInputActions = new PlayerInputActions(); // Initialize the PlayerInputActions
+        playerInputActions.Enable(); // Enable the input actions
+
+        // Subscribe to the pause action
+        playerInputActions.Base.Pause.performed += ctx => TogglePause();
     }
-    private void Update()
+
+    private void OnDestroy()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        playerInputActions.Disable(); // Disable the input actions when this object is destroyed
+    }
+
+    private void TogglePause()
+    {
+        if (pauseScreen.activeInHierarchy)
         {
-            if (pauseScreen.activeInHierarchy)
-            {
-                PauseGame(false);
-            }
-            else PauseGame(true);
+            PauseGame(false);
+        }
+        else
+        {
+            PauseGame(true);
         }
     }
 
     #region Game Over
-    //Activates the game over screen
     public void GameOver()
     {
         gameOverScreen.SetActive(true);
         SoundManager.instance.PlaySound(gameOverSound);
     }
-
-    //Game over functions
 
     public void Restart()
     {
@@ -49,9 +61,9 @@ public class UImanager : MonoBehaviour
 
     public void Quit()
     {
-        Application.Quit(); //Quits the game (BUILD ONLY)
+        Application.Quit(); // Quits the game (BUILD ONLY)
 #if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false; //Ends playmode in editor
+        UnityEditor.EditorApplication.isPlaying = false; // Ends playmode in editor
 #endif
     }
     #endregion
@@ -66,13 +78,15 @@ public class UImanager : MonoBehaviour
         else
             Time.timeScale = 1;
     }
-    public void SoundVolume() {
+
+    public void SoundVolume()
+    {
         SoundManager.instance.ChangeSoundVolume(0.2f);
     }
 
-    public void MusicVolume() {
+    public void MusicVolume()
+    {
         SoundManager.instance.ChangeMusicVolume(0.2f);
     }
-
     #endregion
 }

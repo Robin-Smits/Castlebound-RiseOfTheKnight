@@ -18,7 +18,7 @@ TagManager:
   - Background
   - Pillars
   - Ground
-  - Walls
+  - 
   - 
   - Player
   - Enemy
@@ -59,9 +59,6 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 1213107481
-    locked: 0
-  - name: Walls
-    uniqueID: 987285851
     locked: 0
   - name: Player
     uniqueID: 3273365231
