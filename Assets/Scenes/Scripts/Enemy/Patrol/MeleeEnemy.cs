@@ -22,7 +22,7 @@ public class MeleeEnemy : MonoBehaviour
     //References
     private Animator animator;
     private Health playerHealth;
-    private PlayerBlock playerBlock; // Add reference to PlayerBlock script
+    private PlayerBlock playerBlock;
     private EnemyPatrol enemyPatrol;
 
     private void Awake()

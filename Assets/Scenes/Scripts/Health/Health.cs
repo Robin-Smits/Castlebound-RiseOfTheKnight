@@ -53,6 +53,18 @@ public class Health : MonoBehaviour
                     animator.SetTrigger("die");
                     SoundManager.instance.PlaySound(deathSound);
 
+                    Collider2D collider = GetComponent<Collider2D>();
+                    if (collider != null)
+                    {
+                        collider.enabled = false;
+                    }
+
+                    Rigidbody2D rb = GetComponent<Rigidbody2D>();
+                    if (rb != null)
+                    {
+                        rb.isKinematic = true;
+                    }
+
                     foreach (Behaviour component in components)
                     {
                         component.enabled = false;
