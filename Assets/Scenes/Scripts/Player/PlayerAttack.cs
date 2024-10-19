@@ -63,7 +63,6 @@ public class PlayerAttack : MonoBehaviour
     private void Attack()
     {
         playerMovement.isAttacking = true;
-        playerMovement.enabled = false;
         animator.SetTrigger("attack");
 
         if (SoundManager.instance != null && attackSound != null)
@@ -81,7 +80,6 @@ public class PlayerAttack : MonoBehaviour
 {
     yield return new WaitForSeconds(1f);  // Stel de tijd in gebaseerd op hoe lang de animatie duurt
     playerMovement.isAttacking = false;
-    playerMovement.enabled = true;
 }
 
     private void Damage()
