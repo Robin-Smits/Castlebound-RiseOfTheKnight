@@ -71,7 +71,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         cooldownTimer = 0;
-        Damage();
+        //Damage();
 
         StartCoroutine(ResetAttackStateAfterDelay());
     }
