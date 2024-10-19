@@ -34,6 +34,10 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     private float horizontalInput;
 
+    
+    public bool isAttacking { get; set; }
+    public bool isBlocking { get; set; }
+
     private PlayerInputActions playerInputActions;
 
     private void Awake()
@@ -179,9 +183,9 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public bool canAttack()
+    public bool canAttackOrBlock()
     {
-        return horizontalInput == 0 && isGrounded() && !onWall();
+        return horizontalInput == 0 && isGrounded() && !onWall() && !isBlocking && !isAttacking;;
     }
 
     private bool isGrounded()
@@ -195,27 +199,27 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
         return raycastHit.collider != null;
     }
-private void OnDrawGizmos()
-{
-    // Check if boxCollider is assigned
-    if (boxCollider == null)
+    private void OnDrawGizmos()
     {
-        // Try to get the BoxCollider2D component if it's not assigned
-        boxCollider = GetComponent<BoxCollider2D>();
+        // Check if boxCollider is assigned
+        if (boxCollider == null)
+        {
+            // Try to get the BoxCollider2D component if it's not assigned
+            boxCollider = GetComponent<BoxCollider2D>();
+        }
+
+        // Draw ground check gizmos
+        Gizmos.color = Color.green;
+        Vector2 groundCheckOrigin = (Vector2)boxCollider.bounds.center + Vector2.down * (boxCollider.bounds.extents.y + 0.1f);
+        Gizmos.DrawRay(groundCheckOrigin, Vector2.down * 0.1f); // Draw line down for ground check
+        Gizmos.DrawWireCube(groundCheckOrigin, new Vector2(boxCollider.bounds.size.x, 0.2f)); // Draw a wire cube to represent the ground check area
+
+        // Draw wall check gizmos
+        Gizmos.color = Color.blue;
+        Vector2 wallCheckOrigin = (Vector2)boxCollider.bounds.center + new Vector2(boxCollider.bounds.extents.x * Mathf.Sign(transform.localScale.x), 0);
+        Gizmos.DrawRay(wallCheckOrigin, new Vector2(transform.localScale.x, 0) * 0.1f); // Draw line to the side for wall check
+        Gizmos.DrawWireCube(wallCheckOrigin, new Vector2(0.2f, boxCollider.bounds.size.y)); // Draw a wire cube to represent the wall check area
     }
-
-    // Draw ground check gizmos
-    Gizmos.color = Color.green;
-    Vector2 groundCheckOrigin = (Vector2)boxCollider.bounds.center + Vector2.down * (boxCollider.bounds.extents.y + 0.1f);
-    Gizmos.DrawRay(groundCheckOrigin, Vector2.down * 0.1f); // Draw line down for ground check
-    Gizmos.DrawWireCube(groundCheckOrigin, new Vector2(boxCollider.bounds.size.x, 0.2f)); // Draw a wire cube to represent the ground check area
-
-    // Draw wall check gizmos
-    Gizmos.color = Color.blue;
-    Vector2 wallCheckOrigin = (Vector2)boxCollider.bounds.center + new Vector2(boxCollider.bounds.extents.x * Mathf.Sign(transform.localScale.x), 0);
-    Gizmos.DrawRay(wallCheckOrigin, new Vector2(transform.localScale.x, 0) * 0.1f); // Draw line to the side for wall check
-    Gizmos.DrawWireCube(wallCheckOrigin, new Vector2(0.2f, boxCollider.bounds.size.y)); // Draw a wire cube to represent the wall check area
-}
 
 
 

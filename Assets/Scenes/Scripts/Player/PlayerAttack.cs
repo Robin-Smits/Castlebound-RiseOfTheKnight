@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -53,7 +54,7 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnAttack(InputAction.CallbackContext context)
     {
-        if (cooldownTimer > attackCooldown && playerMovement.canAttack())
+        if (cooldownTimer > attackCooldown && playerMovement.canAttackOrBlock())
         {
             Attack();
         }
@@ -61,11 +62,27 @@ public class PlayerAttack : MonoBehaviour
 
     private void Attack()
     {
+        playerMovement.isAttacking = true;
+        playerMovement.enabled = false;
         animator.SetTrigger("attack");
-        SoundManager.instance.PlaySound(attackSound);
-        cooldownTimer = 0; // Reset cooldown timer na aanvallen
-        Damage(); // Roep de Damage functie aan om schade toe te voegen
+
+        if (SoundManager.instance != null && attackSound != null)
+        {
+            SoundManager.instance.PlaySound(attackSound);
+        }
+
+        cooldownTimer = 0;
+        Damage();
+
+        StartCoroutine(ResetAttackStateAfterDelay());
     }
+
+    private IEnumerator ResetAttackStateAfterDelay()
+{
+    yield return new WaitForSeconds(1f);  // Stel de tijd in gebaseerd op hoe lang de animatie duurt
+    playerMovement.isAttacking = false;
+    playerMovement.enabled = true;
+}
 
     private void Damage()
     {
