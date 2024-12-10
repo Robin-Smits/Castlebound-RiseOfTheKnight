@@ -13,6 +13,7 @@ public class Arrowtrap : MonoBehaviour
     [SerializeField] private AudioClip arrowFireSound;
     private float cooldownTimer;
 
+    // Fires an arrow
     private void Attack() {
         cooldownTimer = 0;
         SoundManager.instance.PlaySound(arrowFireSound);
@@ -20,6 +21,7 @@ public class Arrowtrap : MonoBehaviour
         arrows[FindArrow()].GetComponent<EnemyProjectile>().ActivateProjectile();
     }
 
+    // Looks if an arrow is available
     private int FindArrow()
     {
         for (int i = 0; i < arrows.Length; i++)
@@ -30,6 +32,7 @@ public class Arrowtrap : MonoBehaviour
         return 0;
     }
 
+    // Update cooldowntimer & check if it should fire
     private void Update()
     {
         cooldownTimer += Time.deltaTime;

@@ -6,12 +6,14 @@ public class EnemyProjectile : EnemyDamage
     [SerializeField] private float resetTime;
     private float lifetime;
 
+    // Activates an arrow
     public void ActivateProjectile() 
     {
         lifetime = 0;
         gameObject.SetActive(true);
     }
 
+    // Monitors the status of the arrow
     private void Update()
     {
         float movementSpeed = speed * Time.deltaTime;
@@ -21,6 +23,7 @@ public class EnemyProjectile : EnemyDamage
             gameObject.SetActive(false);
     }
 
+    // Checks if an arrow collides with a player
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")

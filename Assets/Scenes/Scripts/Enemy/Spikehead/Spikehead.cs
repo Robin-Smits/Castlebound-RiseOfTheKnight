@@ -19,9 +19,10 @@ public class Spikehead : EnemyDamage
     {
         Stop();
     }
+    // Manages the status of the spikehead
     private void Update()
     {
-        //Move spikehead to destination only if attacking
+        //Move spikehead to destination (only if attacking)
         if (attacking)
             transform.Translate(destination * Time.deltaTime * speed);
         else
@@ -31,6 +32,7 @@ public class Spikehead : EnemyDamage
                 CheckForPlayer();
         }
     }
+    // Checks if the player is in sight of the enemy
     private void CheckForPlayer()
     {
         CalculateDirections();
@@ -49,6 +51,7 @@ public class Spikehead : EnemyDamage
             }
         }
     }
+    // Range the enemy can see a player
     private void CalculateDirections()
     {
         directions[0] = transform.right * range; //Right direction
@@ -56,12 +59,14 @@ public class Spikehead : EnemyDamage
         directions[2] = transform.up * range; //Up direction
         directions[3] = -transform.up * range; //Down direction
     }
+    // Makes the spikehead stop moving
     private void Stop()
     {
         destination = transform.position; //Set destination as current position so it doesn't move
         attacking = false;
     }
 
+    // Checks if the enemy colides with the player, deals damage & stops moving
     private new void OnTriggerEnter2D(Collider2D collision)
     {
         SoundManager.instance.PlaySound(impactSound);

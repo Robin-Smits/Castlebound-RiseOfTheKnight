@@ -34,6 +34,7 @@ public class Health : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    // Damages the player & checks if he has lives left
     public void TakeDamage(float damage)
     {
         currentHealth = Mathf.Clamp(currentHealth - damage, 0, startingHealth);
@@ -74,11 +75,14 @@ public class Health : MonoBehaviour
             }
         }
     }
+    
+    // Adds the given amount of health to the player
     public void AddHealth(float _health)
     {
         currentHealth = Mathf.Clamp(currentHealth + _health, 0, startingHealth);
     }
 
+    // Resets the player character
     public void Respawn()
     {
         dead = false;
@@ -108,6 +112,7 @@ public class Health : MonoBehaviour
         return currentHealth;
     }
 
+    // Makes player invulnerable for a few frames
     private IEnumerator Invulnerability()
     {
         Physics2D.IgnoreLayerCollision(11, 12, true);

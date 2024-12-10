@@ -44,6 +44,7 @@ public class PlayerBlock : MonoBehaviour
         cooldownTimer += Time.deltaTime;
     }
 
+    // Checks if the player can block
     private void OnBlock(InputAction.CallbackContext context)
     {
         if (cooldownTimer > BlockCooldown && playerMovement.canAttackOrBlock())
@@ -52,11 +53,13 @@ public class PlayerBlock : MonoBehaviour
         }
     }
 
+    // Ends the block
     private void OnBlockRelease(InputAction.CallbackContext context)
     {
         StopBlocking();
     }
 
+    // update blocking variables and start the animation
     private void StartBlocking()
     {
         isBlocking = true;
@@ -66,6 +69,7 @@ public class PlayerBlock : MonoBehaviour
         cooldownTimer = 0; // Reset cooldown timer bij blokkeren
     }
 
+    // Update blocking variables and end the animation
     private void StopBlocking()
     {
         animator.SetBool("block", false);

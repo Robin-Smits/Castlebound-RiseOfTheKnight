@@ -19,6 +19,7 @@ public class PlayerRespawn : MonoBehaviour
         uiManager = FindObjectOfType<UImanager>();
     }
 
+    // Checks the players lives and if he should be able to respawn or the game is over
     public void CheckRespawn()
     {
         if (playerLives > 0)
@@ -35,6 +36,7 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
+    // Check if player hits a checkpoint of finish flag
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.transform.tag == "Checkpoint")
@@ -49,7 +51,7 @@ public class PlayerRespawn : MonoBehaviour
         {
             // Play the checkpoint sound immediately
             SoundManager.instance.PlaySound(checkpointSound);
-            
+
             collision.GetComponent<Collider2D>().enabled = false;
             collision.GetComponent<Animator>().SetTrigger("appear");
 
@@ -57,7 +59,8 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-IEnumerator ExitLevelAfterDelay(float delay)
+    // Sends player to the next level or homescreen after level completion
+    IEnumerator ExitLevelAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 

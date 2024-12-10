@@ -29,6 +29,7 @@ public class Spear : MonoBehaviour
         StartCoroutine(ActivateSpearRepeatedly());
     }
 
+    // Check if the player is in the attack range
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -37,6 +38,7 @@ public class Spear : MonoBehaviour
         }
     }
 
+    // Avoid damaging player if he isnt in attackrange
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -45,6 +47,7 @@ public class Spear : MonoBehaviour
         }
     }
 
+    // Damage player if he is in attackrange
     private void Update()
     {
         if (active && player != null && !hasDamaged)
@@ -54,6 +57,7 @@ public class Spear : MonoBehaviour
         }
     }
 
+    // Manages spear animation
     private IEnumerator ActivateSpearRepeatedly()
     {
         while (true)

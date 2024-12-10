@@ -28,6 +28,7 @@ public class Firetrap : MonoBehaviour
         spriteRend = GetComponent<SpriteRenderer>();
     }
 
+    // Starts animation if the player is colliding with the trap
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
@@ -39,11 +40,13 @@ public class Firetrap : MonoBehaviour
         }
     }
 
+    // Reset player if it isnt colliding with the trap
     private void OnTriggerExit2D(Collider2D collision)
     {
         player = null;
     }
 
+    // Check if it can damage the player
     private void Update()
     {
         if (active && player != null && !hasDamaged)
@@ -52,7 +55,7 @@ public class Firetrap : MonoBehaviour
             hasDamaged = true;
         }
     }
-
+    // Activates the firetrap animation
     private IEnumerator ActivateFiretrap()
     {
         // Turn the sprite red to notify the player and trigger the trap

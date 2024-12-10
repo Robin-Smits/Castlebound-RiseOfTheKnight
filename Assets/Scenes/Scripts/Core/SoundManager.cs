@@ -26,21 +26,25 @@ public class SoundManager : MonoBehaviour
         ChangeMusicVolume(0);
         ChangeSoundVolume(0);
     }
+    // Plays the given sound
     public void PlaySound(AudioClip _sound)
     {
         soundSource.PlayOneShot(_sound);
     }
 
+    // Changes the volume of the gamesounds by the given amount
     public void ChangeSoundVolume(float _change)
     {
         ChangeSourceVolume(1, "soundVolume", _change, soundSource);
     }
 
+    //// Changes the volume of the music by the given amount
     public void ChangeMusicVolume(float _change)
     {
         ChangeSourceVolume(0.3f, "musicVolume", _change, musicSource);
     }
 
+    // Manages the volume of the given sound source
     private void ChangeSourceVolume(
         float baseVolume,
         string volumeName,

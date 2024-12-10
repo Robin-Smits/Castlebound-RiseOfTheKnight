@@ -76,6 +76,7 @@ public class PlayerMovement : MonoBehaviour
         body.freezeRotation = true;
     }
 
+    // Handle player movement
     private void Update()
     {
         // Switch animations
@@ -113,6 +114,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Handle left-right movement
     private void OnMove(InputAction.CallbackContext context)
     {
         Vector2 input = context.ReadValue<Vector2>();
@@ -125,6 +127,7 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector3(-4, 4, 4); // Facing left
     }
 
+    // Makes player jump if the button is pressed
     private void OnJump(InputAction.CallbackContext context)
     {
         jump();
@@ -136,6 +139,7 @@ public class PlayerMovement : MonoBehaviour
             body.velocity = new Vector2(body.velocity.x, body.velocity.y / 2);
     }
 
+    // Makes player do a walljump
     private void wallJump()
     {
         body.AddForce(new Vector2(-Mathf.Sign(transform.localScale.x) * wallJumpPowerX, wallJumpPowerY));
@@ -183,22 +187,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    // Check if player can attack or block
     public bool canAttackOrBlock()
     {
         return horizontalInput == 0 && isGrounded() && !onWall() && !isBlocking && !isAttacking;;
     }
 
+    // Check if the player is touching the ground layer
     private bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(0, -1), 0.1f, groundLayer);
         return raycastHit.collider != null;
     }
 
+    // Check if a player is on a wall
     private bool onWall()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(boxCollider.bounds.center, boxCollider.bounds.size, 0, new Vector2(transform.localScale.x, 0), 0.1f, wallLayer);
         return raycastHit.collider != null;
     }
+    
+    // Visualize hitboxes
     private void OnDrawGizmos()
     {
         // Check if boxCollider is assigned

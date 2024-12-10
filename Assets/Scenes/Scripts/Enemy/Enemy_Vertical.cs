@@ -15,7 +15,8 @@ public class Enemy_Vertical : MonoBehaviour
         lowerEdge = transform.position.y - movementDistance;
     }
 
-    void Update()
+    // Makes the item move between given positions
+    private void Update()
     {
         // Move up
         if (movingUp)
@@ -43,15 +44,12 @@ public class Enemy_Vertical : MonoBehaviour
         }
     }
 
+    // Checks for collision with the player and damages the given amount
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.tag == "Player")
         {
-            Health playerHealth = collision.GetComponent<Health>();
-            if (playerHealth != null)
-            {
-                playerHealth.TakeDamage(damage);
-            }
+            collision.GetComponent<Health>().TakeDamage(damage);
         }
     }
 }

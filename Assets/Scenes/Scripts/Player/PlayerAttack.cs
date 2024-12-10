@@ -47,11 +47,13 @@ public class PlayerAttack : MonoBehaviour
         playerInputActions.Base.Attack.performed -= OnAttack;
     }
 
+    // Manages the attack cooldown
     private void Update()
     {
         cooldownTimer += Time.deltaTime; // Cooldown timer bijhouden
     }
 
+    // Check if the player can attack
     private void OnAttack(InputAction.CallbackContext context)
     {
         if (cooldownTimer > attackCooldown && playerMovement.canAttackOrBlock())
@@ -60,6 +62,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Play attack animation
     private void Attack()
     {
         playerMovement.isAttacking = true;
@@ -76,12 +79,14 @@ public class PlayerAttack : MonoBehaviour
         StartCoroutine(ResetAttackStateAfterDelay());
     }
 
+    // Resets the attacking boolean
     private IEnumerator ResetAttackStateAfterDelay()
 {
     yield return new WaitForSeconds(1f);  // Stel de tijd in gebaseerd op hoe lang de animatie duurt
     playerMovement.isAttacking = false;
 }
 
+    // Damages enemy if the player can see one
     private void Damage()
     {
         if (EnemyInSight())
@@ -90,6 +95,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    // Checks if the player can see an enemy
     private bool EnemyInSight()
     {
         RaycastHit2D hit =
@@ -112,6 +118,7 @@ public class PlayerAttack : MonoBehaviour
         return hit.collider != null;
     }
 
+    // Visualizes player hitbox
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

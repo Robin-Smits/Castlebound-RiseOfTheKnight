@@ -31,6 +31,7 @@ public class MeleeEnemy : MonoBehaviour
         enemyPatrol = GetComponentInParent<EnemyPatrol>();
     }
 
+    // Manages the status of the enemy
     private void Update()
     {
         cooldownTimer += Time.deltaTime;
@@ -48,10 +49,12 @@ public class MeleeEnemy : MonoBehaviour
             }
         }
 
+        // Stop moving when player in sight
         if (enemyPatrol != null)
             enemyPatrol.enabled = !PlayerInSight();
     }
 
+    // Checks if the player is in sight
     private bool PlayerInSight()
     {
         RaycastHit2D hit = Physics2D.BoxCast(
@@ -76,6 +79,7 @@ public class MeleeEnemy : MonoBehaviour
         return hit.collider != null;
     }
 
+    // Deals damage to the player
     private void DamagePlayer()
     {
         if (PlayerInSight())
@@ -84,6 +88,7 @@ public class MeleeEnemy : MonoBehaviour
         }
     }
 
+    //Checks if the enemy is touching the ground layer
     private bool isGrounded()
     {
         RaycastHit2D raycastHit = Physics2D.BoxCast(
@@ -97,6 +102,7 @@ public class MeleeEnemy : MonoBehaviour
         return raycastHit.collider != null;
     }
 
+    // Visualizes the attackrange
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

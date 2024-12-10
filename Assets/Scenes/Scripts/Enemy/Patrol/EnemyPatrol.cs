@@ -31,6 +31,7 @@ public class EnemyPatrol : MonoBehaviour
         animator.SetBool("moving", false);
     }
 
+    // Makes the enemy move between the given positions
     private void Update()
     {
         if (movingLeft)
@@ -56,6 +57,8 @@ public class EnemyPatrol : MonoBehaviour
             }
         }
     }
+
+    // Makes the enemy move in the given direction
     private void MoveInDirection(int _direction)
     {
         idleTimer = 0;
@@ -71,6 +74,7 @@ public class EnemyPatrol : MonoBehaviour
             );
     }
 
+    // Changes which way the enemy is moving and facing
     private void ChangeDirection()
     {
         animator.SetBool("moving", false);

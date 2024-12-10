@@ -18,6 +18,7 @@ public class SaveManager : MonoBehaviour
         Load();
     }
 
+    // Tries to load a savefile if it exists
     public void Load()
     {
         //Check if savedata file exists
@@ -35,6 +36,7 @@ public class SaveManager : MonoBehaviour
         }
     }
 
+    // Creates or overwrites the existing savefile
     public void Save()
     {
         BinaryFormatter bf = new BinaryFormatter();

@@ -12,7 +12,7 @@ public class Healthbar : MonoBehaviour
         currenthealthBar.fillAmount = health.GetCurrentHealth() / 10;
     }
 
-    // Update is called once per frame
+    // Updates the healthbar (is called once per frame)
     void Update()
     {
         currenthealthBar.fillAmount = health.GetCurrentHealth() / 10;

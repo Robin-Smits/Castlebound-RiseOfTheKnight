@@ -14,27 +14,28 @@ public class Enemy_Horizontal : MonoBehaviour
         rightEdge = transform.position.x + movementDistance;
     }
 
-void Update()
-{
-    if (movingLeft)
+    // Makes the item move between given positions
+    private void Update()
     {
-        if (transform.position.x > leftEdge)
+        if (movingLeft)
         {
-            transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
+            if (transform.position.x > leftEdge)
+            {
+                transform.position = new Vector3(transform.position.x - speed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+            else { movingLeft = false; }
         }
-        else {movingLeft = false;}
-    } 
-    else 
-    {
-        if (transform.position.x < rightEdge)
+        else
         {
-            transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+            if (transform.position.x < rightEdge)
+            {
+                transform.position = new Vector3(transform.position.x + speed * Time.deltaTime, transform.position.y, transform.position.z);
+            }
+            else { movingLeft = true; }
         }
-        else {movingLeft = true;}
     }
-}
 
-
+    // Checks for collision with the player and damages the given amount
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Player")
