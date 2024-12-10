@@ -32,7 +32,14 @@ public class UImanager : MonoBehaviour
 
     private void TogglePause()
     {
-        PauseGame(pauseScreen.activeInHierarchy);
+        if (pauseScreen.activeInHierarchy)
+        {
+            PauseGame(false);
+        }
+        else
+        {
+            PauseGame(true);
+        }
     }
 
     #region Game Over
