@@ -16958,6 +16958,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spikehead
       objectReference: {fileID: 0}
+    - target: {fileID: 4051816674305876734, guid: 122c10032db10df4fa0e5c38b42cdec2, type: 3}
+      propertyPath: range
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4051816674305876734, guid: 122c10032db10df4fa0e5c38b42cdec2, type: 3}
+      propertyPath: groundLayer.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 9159554119809316045, guid: 122c10032db10df4fa0e5c38b42cdec2, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.45
@@ -18015,7 +18023,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7887981338791654780, guid: 98ee7670e69e45444ae40e07c94fb48d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 15.7
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7887981338791654780, guid: 98ee7670e69e45444ae40e07c94fb48d, type: 3}
       propertyPath: m_LocalPosition.z

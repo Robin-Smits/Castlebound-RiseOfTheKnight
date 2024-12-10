@@ -88,6 +88,17 @@ public class Health : MonoBehaviour
         StartCoroutine(Invulnerability());
 
         //Re-activate components
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.isKinematic = false;
+        }
+
         foreach (Behaviour component in components)
             component.enabled = true;
     }
