@@ -27,3 +27,6 @@ Collectables:
 - Finish flag
 
 Er is momenteel een level uitgewerkt dit level dient als een samenvatting van alle items in het spel en is niet het startlevel voor de uiteindelijke game.
+
+Gemaakt door:
+- Robin Smits
